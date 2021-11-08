@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta property="og:title" content="水豚" />
+  <meta property="og:description" content="水豚" />
+  <meta property="og:image" content="https://ngseke.github.io/capybara/capybara.jpg" />
+  <title>水豚</title>
+  <style>
+    html,body{
+      position: relative;
+      height: 100%;
+      width: 100%;
+      margin: 0;
+    }
+    @keyframes hue {
+      from {
+        filter: hue-rotate(0deg);
+      }
+      to {
+        filter: hue-rotate(360deg);
+      }
+    }
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: center / contain no-repeat url('./capybara.jpg');
+      background-color: #1d1d1d;
+      animation: hue 5s infinite alternate forwards;
+    }
+  </style>
+</head>
+<body>
+</body>
+</html>
