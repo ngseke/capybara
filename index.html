@@ -1,38 +1,125 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta property="og:title" content="水豚" />
-  <meta property="og:description" content="水豚" />
-  <meta property="og:image" content="https://ngseke.github.io/capybara/capybara.jpg" />
-  <title>水豚</title>
+  <meta property="og:title" content="𝗖𝗔𝗣𝗬𝗕𝗔𝗥𝗔" />
+  <meta property="og:description" content="CAPYBARA" />
+  <meta property="og:image" content="https://ngseke.github.io/capybara/img/9.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="./img/9.png" />
+  <title>𝗖𝗔𝗣𝗬𝗕𝗔𝗥𝗔</title>
+
   <style>
-    html,body{
+    html, body{
       position: relative;
       height: 100%;
       width: 100%;
       margin: 0;
+      overflow: hidden;
     }
-    @keyframes hue {
-      from {
-        filter: hue-rotate(0deg);
-      }
-      to {
-        filter: hue-rotate(360deg);
+
+    @keyframes slide {
+      0% { background-position-x: 0% }
+      100% { background-position-x: 600vw }
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: repeating-linear-gradient(-45deg, red 0%, yellow 7.14%, lime 14.28%, cyan 21.42%, cyan 28.56%, blue 35.7%, magenta 42.84%, red 50%);
+      background-size: 600vw 600vw;
+      animation: slide 10s infinite linear forwards;
+    }
+
+    .container {
+      position: relative;
+      width: 90%;
+      height: 100%;
+      transition: all 1s;
+    }
+
+    .loading {
+      transform: scale(0);
+    }
+
+    @media (min-width: 576px) {
+      .container {
+        width: 100%;
+        height: 60vh;
+        margin: 0;
       }
     }
-    body::before {
-      content: "";
+
+    .capybara {
+      width: 100%;
+      height: 100%;
+      background: center / contain no-repeat url('./img/1.png');
+    }
+
+    .shadow {
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      background: center / contain no-repeat url('./capybara.jpg');
-      background-color: #1d1d1d;
-      animation: hue 5s infinite alternate forwards;
+      z-index: -1;
+      filter: blur(1rem);
+    }
+
+    #player {
+      position: fixed;
+      top: -10000px;
+      left: -10000px;
     }
   </style>
 </head>
-<body>
+<body title="𝗖𝗔𝗣𝗬𝗕𝗔𝗥𝗔">
+  <div class="container loading">
+    <div class="capybara"></div>
+    <div class="capybara shadow"></div>
+  </div>
+  <div id="player" tabindex="-1"></div>
+  <script>
+    const summon = () => {
+      const capybaras = [...document.querySelectorAll('.capybara')]
+      const randomNumber = Math.floor(Math.random() * 11) + 1
+      capybaras.forEach(capybara => {
+        Object.assign(capybara.style, {
+          backgroundImage: `url(./img/${randomNumber}.png)`
+        })
+      })
+    }
+    summon()
+
+    ;(() => {
+      let player, isPlaying
+      const videoId = 'wIkmkI1NTME'
+
+      const onReady = () => {
+        document.querySelector('.container').classList.remove('loading')
+      }
+
+      const onStateChange = (event) => {
+        if (event.data === YT.PlayerState.PLAYING) isPlaying = true
+      }
+
+      window.onYouTubeIframeAPIReady = () => {
+        player = new YT.Player('player', {
+          height: 500,
+          width: 500,
+          videoId,
+          events: { onReady, onStateChange },
+          playerVars: {
+            loop: 1,
+            disablekb: 1,
+            playlist: videoId,
+          },
+        })
+      }
+
+      document.body.addEventListener('click', () => {
+        if (!isPlaying) player.playVideo()
+      })
+    })()
+  </script>
+  <script src="https://www.youtube.com/iframe_api"></script>
 </body>
 </html>
