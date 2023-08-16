@@ -1,0 +1,27 @@
+{
+  "extends": "@tsconfig/svelte/tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "checkJs": true,
+    "isolatedModules": true,
+    "strictNullChecks": true
+  },
+  "include": [
+    "src/**/*.d.ts",
+    "src/**/*.ts",
+    "src/**/*.js",
+    "src/**/*.svelte",
+    ".eslintrc.cjs",
+    "svelte.config.js",
+    "vite.config.ts"
+  ],
+  "exclude": [
+    "dist/**/*.*"
+  ],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
